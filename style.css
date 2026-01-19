@@ -1,0 +1,39 @@
+/**
+ * The Global Jump - Official Countdown Script
+ * Target: August 8, 2026, 00:00:00 UTC
+ */
+
+const targetDate = new Date("2026-08-08T00:00:00Z").getTime();
+
+const updateCountdown = () => {
+    // Current time in UTC milliseconds
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    // Time calculations
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Update DOM elements with zero-padding
+    const format = (num) => num.toString().padStart(2, '0');
+
+    document.getElementById("days").innerText = days;
+    document.getElementById("hours").innerText = format(hours);
+    document.getElementById("minutes").innerText = format(minutes);
+    document.getElementById("seconds").innerText = format(seconds);
+
+    // If the countdown is over
+    if (distance < 0) {
+        clearInterval(countdownInterval);
+        document.getElementById("countdown").innerHTML = "<h1 class='jump-now'>JUMP NOW!</h1>";
+        console.log("Mission Accomplished: Global Jump Initialized.");
+    }
+};
+
+// Update every second
+const countdownInterval = setInterval(updateCountdown, 1000);
+
+// Initial trigger to avoid delay
+updateCountdown();
