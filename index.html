@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Global Jump | Official</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;600&display=swap" rel="stylesheet">
+    <style>
+        /* Modern Space Design */
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            text-align: center;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
+        }
+        .container { max-width: 900px; padding: 40px; z-index: 10; }
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 8vw, 4.5rem);
+            letter-spacing: 12px;
+            margin: 0;
+            background: linear-gradient(to bottom, #fff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 30px rgba(255,255,255,0.1);
+        }
+        .mission {
+            color: #ff3e3e;
+            font-weight: 600;
+            letter-spacing: 6px;
+            margin: 20px 0 60px 0;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+        }
+        #countdown {
+            display: flex;
+            justify-content: center;
+            gap: clamp(10px, 4vw, 40px);
+            margin-bottom: 50px;
+        }
+        .segment {
+            display: flex;
+            flex-direction: column;
+            min-width: 80px;
+        }
+        .segment span {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.5rem, 6vw, 3.5rem);
+            font-weight: 700;
+            color: #ffffff;
+        }
+        .segment p {
+            font-size: 0.7rem;
+            color: #555;
+            letter-spacing: 2px;
+            margin-top: 5px;
+        }
+        .info {
+            color: #444;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+        }
+        .btn {
+            background: transparent;
+            border: 1px solid #ffffff;
+            color: #ffffff;
+            padding: 18px 45px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .btn:hover {
+            background: #fff;
+            color: #000;
+            box-shadow: 0 0 40px rgba(255,255,255,0.3);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>THE GLOBAL JUMP</h1>
+        <p class="mission">One Moment. Eight Billion People.</p>
+        
+        <div id="countdown">
+            <div class="segment"><span id="days">--</span><p>DAYS</p></div>
+            <div class="segment"><span id="hours">--</span><p>HOURS</p></div>
+            <div class="segment"><span id="minutes">--</span><p>MINUTES</p></div>
+            <div class="segment"><span id="seconds">--</span><p>SECONDS</p></div>
+        </div>
+
+        <p class="info">TARGET: AUGUST 8, 2026 | 00:00:00 UTC</p>
+        <button class="btn">COUNT ME IN</button>
+    </div>
+
+    <script>
+        const target = new Date("2026-08-08T00:00:00Z").getTime();
+        const update = () => {
+            const now = new Date().getTime();
+            const diff = target - now;
+            const format = (n) => String(Math.max(0, n)).padStart(2, '0');
+
+            document.getElementById("days").innerText = format(Math.floor(diff / (1000 * 60 * 60 * 24)));
+            document.getElementById("hours").innerText = format(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
+            document.getElementById("minutes").innerText = format(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)));
+            document.getElementById("seconds").innerText = format(Math.floor((diff % (1000 * 60)) / 1000));
+        };
+        setInterval(update, 1000);
+        update();
+    </script>
+</body>
+</html>
